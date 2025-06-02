@@ -1,0 +1,72 @@
+# Vegetable Mart - Simple Console App
+
+vegetables = {
+    "Tomato": 20,
+    "Potato": 15,
+    "Onion": 25,
+    "Carrot": 30,
+    "Beans": 35
+}
+
+cart = {}
+
+def display_menu():
+    print("\n--- Vegetable Mart ---")
+    print("1. View Vegetables")
+    print("2. Add to Cart")
+    print("3. View Cart")
+    print("4. Checkout")
+    print("5. Exit")
+
+def view_vegetables():
+    print("\nAvailable Vegetables:")
+    for veg, price in vegetables.items():
+        print(f"{veg} - ₹{price}/kg")
+
+def add_to_cart():
+    veg_name = input("Enter vegetable name: ").title()
+    if veg_name in vegetables:
+        qty = float(input("Enter quantity (in kg): "))
+        if veg_name in cart:
+            cart[veg_name] += qty
+        else:
+            cart[veg_name] = qty
+        print(f"{qty} kg of {veg_name} added to cart.")
+    else:
+        print("Sorry, vegetable not available.")
+
+def view_cart():
+    if not cart:
+        print("\nCart is empty.")
+        return
+    print("\nYour Cart:")
+    total = 0
+    for veg, qty in cart.items():
+        price = vegetables[veg] * qty
+        print(f"{veg} - {qty} kg - ₹{price}")
+        total += price
+    print(f"Total Amount: ₹{total}")
+
+def checkout():
+    view_cart()
+    print("\nThank you for shopping with us!")
+
+# Main Program Loop
+while True:
+    display_menu()
+    choice = input("Enter your choice: ")
+
+    if choice == '1':
+        view_vegetables()
+    elif choice == '2':
+        add_to_cart()
+    elif choice == '3':
+        view_cart()
+    elif choice == '4':
+        checkout()
+        break
+    elif choice == '5':
+        print("Exiting Vegetable Mart.")
+        break
+    else:
+        print("Invalid choice. Try again.")
